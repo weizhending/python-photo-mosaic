@@ -20,13 +20,11 @@ create_mosaic(
     color_mode='L',  # RGB (color) L (greyscale)
 ) 
 ```
-The images below show an example of how the mosaic tiles are matched to the details of the original image:
 
-![Mosaic Image](http://codebox.org.uk/graphics/mosaic/mosaic_small.jpg)  
-<span class="smallText">Original</span>
+### Sample: Sean Connery made of screenshots from his Bond films
+Sean was in 7 Bond films. A still every 3 seconds yields about 10,000 images. 2,500 are matched and used below:
+![Sample](https://github.com/dvdtho/mosaic/blob/master/connery_old__3cc96.jpg)
 
-[![Mosaic Image Detail](http://codebox.org.uk/graphics/mosaic/mosaic_detail.jpg)](http://codebox.org.uk/graphics/mosaic/mosaic_large.jpg)  
-<span class="smallText">Mosaic Detail (click through for [full mosaic](http://codebox.org.uk/graphics/mosaic/mosaic_large.jpg) ~15MB)</span>
 
 Producing large, highly detailed mosaics takes much time! We are comparing every tile pixel against every mosaic sector to produce a best match. Other libraries simplify this by only comparing against a single pixel from the original sector, or to compare against the sector's histogram.
 
