@@ -2,7 +2,7 @@
 
 This utility can be used to generate [photo-mosaic](http://en.wikipedia.org/wiki/Photographic_mosaic) images. There are several mosaic libraries.
 
-There is **no cheating** with transparent overlays or repeating images (by default).
+There is **no cheating** with transparent overlays, tile tinting, or repeating images (by default).
 
 This one is focused on **maximum accuracy** (using scikit's Mean Squared Error). This is a pixel by pixel comparison to produce a best match. Other libraries simplify this by only comparing against a limited (averaged, antialiased) number of pixel from the original sector, or just compare against the histograms. Producing large, highly detailed mosaics takes much time!
 
