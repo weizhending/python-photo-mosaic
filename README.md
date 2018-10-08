@@ -1,11 +1,13 @@
 # mosaic
 
-This utility can be used to generate [photo-mosaic](http://en.wikipedia.org/wiki/Photographic_mosaic) images, to use it you must have Python installed, along with the [Pillow](http://pillow.readthedocs.org/en/latest/) imaging library.
+This utility can be used to generate [photo-mosaic](http://en.wikipedia.org/wiki/Photographic_mosaic) images.
+
+There are several mosaic libraries. This one is focused on *maximum accuracy*. We are comparing every tile pixel against every mosaic sector to produce a best match. Other libraries simplify this by only comparing against a limited number of pixel from the original sector, or just compare against the sector's histogram. Producing large, highly detailed mosaics takes much time!
 
 As well as an image to use for the photo-mosaic ([most common image formats are supported](http://pillow.readthedocs.org/en/latest/handbook/image-file-formats.html)), you will need a large collection of different images to be used as tiles. The tile images can be any shape or size (the utility will automatically crop and resize them) but for good results you will need a lot of them - a few hundred at least. One convenient way of generating large numbers of tile images is to [extract screenshots from video files](https://trac.ffmpeg.org/wiki/Create%20a%20thumbnail%20image%20every%20X%20seconds%20of%20the%20video) using [ffmpeg](https://www.ffmpeg.org/).
 
 **Prerequisites**
-<pre>pip install scikit-image numpy</pre>
+<pre>pip install scikit-image numpy pillow</pre>
 
 **Usage**
 ```python
@@ -24,10 +26,6 @@ create_mosaic(
 ### Sample: Sean Connery made of screenshots from his Bond films
 Sean starred in 7 Bond films. A still every 3 seconds yields about 10,000 images. 2,500 unique stills are matched and used below:
 ![Sample](https://github.com/dvdtho/mosaic/blob/master/connery_old__3cc96.jpg)
-
-
-Producing large, highly detailed mosaics takes much time! We are comparing every tile pixel against every mosaic sector to produce a best match. Other libraries simplify this by only comparing against a single pixel from the original sector, or to compare against the sector's histogram.
-
 
 
 # Image Aspect Crop with Focus (Bonus Feature)
