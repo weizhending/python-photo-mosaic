@@ -14,7 +14,7 @@ create_mosaic(
     target="/path/to/output/image", 
     tile_paths=["/path/to/tile_1" , ... "/path/to/tile_n"],
     tile_ratio=1920/800, # Crop tiles to be height/width ratio
-    tile_width=300, 
+    tile_width=300, # Tile will be scaled
     enlargement=20, # Mosiac will be this times larger than original
     reuse=False, # Should tiles be used multiple times?
     color_mode='L',  # RGB (color) L (greyscale)
@@ -30,6 +30,22 @@ The images below show an example of how the mosaic tiles are matched to the deta
 
 Producing large, highly detailed mosaics takes much time! We are comparing every tile pixel against every mosaic sector to produce a best match. Other libraries simplify this by only comparing against a single pixel from the original sector, or to compare against the sector's histogram.
 
+
+
+# Image Aspect Crop with Focus (Bonus Feature)
+Ability crop an image to the desired perspective at the maximum size available. Centerpoint can be provided to focus the crop to one side or another. 
+
+For example, if we are cropping the left and right sides and the left side is more interesting than the right side:
+```python   
+from PIL import Image
+img = aspect_crop_to_extent(
+        img=Image.open("/path/to/image"), 
+        target_aspect=1, # width / float(height) -- 1 is square
+        centerpoint=(0,0), # (width, height) -- we will focus on the left, and crop from the right
+)
+```
+
+------------
 Changed from original project (https://github.com/codebox/mosaic):  
 *   ability to not reuse tiles 
 *   increased quality of match by comparing against whole tile images 
@@ -41,4 +57,5 @@ Tested with:
 *   numpy==1.14.4
 *   Pillow==5.1.0
 *   scikit-image==0.14.1
+
 
