@@ -4,19 +4,22 @@ This utility can be used to generate [photo-mosaic](http://en.wikipedia.org/wiki
 
 As well as an image to use for the photo-mosaic ([most common image formats are supported](http://pillow.readthedocs.org/en/latest/handbook/image-file-formats.html)), you will need a large collection of different images to be used as tiles. The tile images can be any shape or size (the utility will automatically crop and resize them) but for good results you will need a lot of them - a few hundred at least. One convenient way of generating large numbers of tile images is to [extract screenshots from video files](https://trac.ffmpeg.org/wiki/Create%20a%20thumbnail%20image%20every%20X%20seconds%20of%20the%20video) using [ffmpeg](https://www.ffmpeg.org/).
 
-Run the utility from the command line, as follows:
+**Prerequisites**
+<pre>pip install scikit-image numpy</pre>
 
-<pre>python mosaic.py &lt;image&gt; &lt;tiles directory&gt;
-</pre>
-
-*   The `image` argument should contain the path to the image for which you want to build the mosaic
-*   The `tiles directory` argument should contain the path to the directory containing the tile images (the directory will be searched recursively, so it doesn't matter if some of the images are contained in sub-directories)
-
-For example:
-
-<pre>python mosaic.py game_of_thrones_poster.jpg /home/admin/images/screenshots
-</pre>
-
+**Usage**
+```python
+create_mosaic(
+    subject="/path/to/source/image", 
+    target="/path/to/output/image", 
+    tile_paths=["/path/to/tile_1" , ... "/path/to/tile_n"],
+    tile_ratio=1920/800, # Crop tiles to be height/width ratio
+    tile_width=300, 
+    enlargement=20, # Mosiac will be this times larger than original
+    reuse=False, # Should tiles be used multiple times?
+    color_mode='L',  # RGB (color) L (greyscale)
+) 
+```
 The images below show an example of how the mosaic tiles are matched to the details of the original image:
 
 ![Mosaic Image](http://codebox.org.uk/graphics/mosaic/mosaic_small.jpg)  
@@ -25,10 +28,17 @@ The images below show an example of how the mosaic tiles are matched to the deta
 [![Mosaic Image Detail](http://codebox.org.uk/graphics/mosaic/mosaic_detail.jpg)](http://codebox.org.uk/graphics/mosaic/mosaic_large.jpg)  
 <span class="smallText">Mosaic Detail (click through for [full mosaic](http://codebox.org.uk/graphics/mosaic/mosaic_large.jpg) ~15MB)</span>
 
-Producing large, highly detailed mosaics can take some time - you should experiment with the various [configuration parameters](https://github.com/codebox/mosaic/blob/master/mosaic.py#L6) explained in the source code to find the right balance between image quality and render time.
+Producing large, highly detailed mosaics takes much time! We are comparing every tile pixel against every mosaic sector to produce a best match. Other libraries simplify this by only comparing against a single pixel from the original sector, or to compare against the sector's histogram.
 
-In particular the [TILE_MATCH_RES](https://github.com/codebox/mosaic/blob/master/mosaic.py#L8) parameter can have a big impact on both these factors - its value determines how closely the program examines each tile when trying to find the best fit for a particular segment of the image. Setting TILE_MATCH_RES to '1' simply finds the average colour of each tile, and picks the one that most closely matches the average colour of the image segment. As the value is increased, the tile is examined in more detail. Setting TILE_MATCH_RES to equal TILE_SIZE will cause the utility to examine each pixel in the tile individually, producing the best possible match (during my testing I didn't find a very noticeable improvement beyond a value of 5, but YMMV).
+Changed from original project (https://github.com/codebox/mosaic):  
+*   ability to not reuse tiles 
+*   increased quality of match by comparing against whole tile images 
+*   increased quality of mosaic by starting with the center instead of top left
+*   ability to input color mode
 
-By default the utility will configure itself to use all available CPUs/CPU-cores on the host system, if you want to leave some processing power spare for other tasks then adjust the [WORKER_COUNT](https://github.com/codebox/mosaic/blob/master/mosaic.py#L12) parameter accordingly.
+Tested with:
+*   Python 3.6.5
+*   numpy==1.14.4
+*   Pillow==5.1.0
+*   scikit-image==0.14.1
 
-H/T for https://github.com/codebox/mosaic for basis.
