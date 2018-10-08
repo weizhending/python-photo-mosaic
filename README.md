@@ -22,7 +22,7 @@ create_mosaic(
 ```
 
 ### Sample: Sean Connery made of screenshots from his Bond films
-Sean was in 7 Bond films. A still every 3 seconds yields about 10,000 images. 2,500 are matched and used below:
+Sean starred in 7 Bond films. A still every 3 seconds yields about 10,000 images. 2,500 are matched and used below:
 ![Sample](https://github.com/dvdtho/mosaic/blob/master/connery_old__3cc96.jpg)
 
 
