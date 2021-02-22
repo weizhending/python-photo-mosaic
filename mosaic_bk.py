@@ -281,4 +281,4 @@ file_open.close()
 subject_path = "./mc.jpg"
 target_path = "./output/output.jpg"
 
-create_mosaic(subject_path, target_path, tile_ratio=1920/800, tile_width=200, enlargement=8, reuse=False, color_mode='RGB', tile_paths=Tiles, shuffle_first=30)
+create_mosaic(subject_path, target_path, tile_ratio=640/480, tile_width=200, enlargement=8, reuse=False, color_mode='RGB', tile_paths=Tiles, shuffle_first=30)
